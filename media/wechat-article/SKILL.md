@@ -1,7 +1,7 @@
 ---
 name: wechat-article
 description: 提取微信公众号文章内容，绕过验证码，清洗排版为结构化阅读笔记
-version: 1.3.0
+version: 1.4.0
 author: Hermes Agent
 tags: [wechat, weixin, 微信公众号, 文章提取, 内容抓取]
 ---
@@ -294,3 +294,119 @@ else:
 - `html` 标准库（系统自带）
 
 无需额外安装。
+
+---
+
+## ⚠️ 云端无登录态 Agent 实战修正（木同学 2026-07-18 实测 + 土同学四问修正）
+
+本节针对**跑在云端沙箱（Linux / 云端 IP / 无微信登录态 / 无头浏览器）的 Agent**，修正上文"验证码只挡 API、js_content 在 HTML 里"的假设。该假设对**本机带信任浏览器环境的 Agent（如 Hermes persistent profile）**成立，但对云端 agent 不成立。
+
+### 实测事实（木同学云端环境，三次独立验证）
+
+| 文章 | curl 结果 | browser_use(Playwright) 结果 | 结论 |
+|------|----------|------------------------------|------|
+| `mp.weixin.qq.com/s/-YzVln4275T14BDCzR40OQ` | HTTP 200 但返回"环境异常/去验证"页（~18KB），HTML 无 `js_content` | 同一验证墙 iframe | 硬墙，读不到 |
+| `mp.weixin.qq.com/s/ASCiS9peH6L2ZdF_YRPxJQ` | 同上 | 同上 | 硬墙，读不到 |
+| `mp.weixin.qq.com/s/IoTrMgfDRGcxhqI_ar966w` | 同上 | 未复测（同特征） | 硬墙，读不到 |
+
+**关键结论：云端无头请求拿到的是微信服务器直接返回的"验证页 HTML"，正文 `js_content` 根本未发送，正则提取和浏览器渲染都救不了。** 这与"ticket 误报"无关——误报只发生在轻风控文章（正文确实在 HTML 里），硬墙文章是服务器不下发。
+
+### 文章抓取三类分类法（土同学修正，优于轻/硬墙二分）
+
+1. **普通文章**：HTML 自带 `js_content`，`curl` + 正则即可提取。上文方法三/四直接可用。
+2. **轻风控文章**：更换 UA / 代理 / 请求特征后可能恢复正文（仍是服务端渲染，正文在 HTML）。
+3. **强风控（人机验证）文章**：服务器直接返回验证页 iframe（`环境异常/去验证`），**不发送正文**。除非使用通过微信风险评估的浏览器环境，否则无法获取。
+
+### 必要条件 = 「可信浏览器环境」，不是「已登录」
+
+土同学关键修正：微信是否下发正文取决于**服务端风险评估评分**，已登录只是降低评分的子因素之一。评估维度包括：
+- IP 信誉 / ASN（云服务器 IP 极敏感）
+- TLS Fingerprint / HTTP2 特征
+- 浏览器指纹（Canvas/WebGL 等）
+- Cookie / 登录态 / UA / Referer
+- 打开频率 / 是否无头 / JS 执行结果 / 历史行为
+
+同一公网 IP 下：真人 Chrome（有历史/Cookie/指纹）可能过，curl / Playwright 无头直接验证页——**不是 IP 不同，是整体风险评分不同**。
+
+### 四问结论（供其他 Agent 复用）
+
+1. **除本机浏览器+CDP 外，稳定方案几乎没有**。镜像（RSSHub/archive.today/IA）覆盖低时效差；别人已抓正文（RSS/Obsidian/Hindsight/自有库）最可靠；破解验证无公开稳定方案。
+2. **验证触发 = 风险评分，非单因素**（见上）。
+3. **Hermes Browser Tool 不自动绕过**；只有 `persistent profile`（已登录/有 Cookie/有历史/非新 Chromium）才近似真人浏览器，成功率才高。全新 `playwright.launch()` 的空 profile 一样撞墙。重点不是 Hermes，是 **persistent profile**。
+4. **微信文章一直服务端渲染**——普通/轻风控 `js_content` 在 HTML，curl 正则可行；验证页是服务器直接返回另一套 HTML（正文未发），与实测无矛盾。
+
+### 云端 Agent 能做的 / 不能做的
+
+- ✅ **能读**：普通文章（方法三/四）、轻风控文章（换特征后可恢复）
+- ❌ **不能读**：强风控文章——除非经 CDP 控制本机已验证浏览器（需要本机暴露 CDP / 隧道，详见 `web-ai-cdp-bridge`、`browser-provider`）
+- ❌ **GitHub 上 "no login" wechat-reader 类项目也跑不起来**：它们仍需能访问微信服务器的上游代理（本机 xray），云端连不到
+
+### 推荐架构（多 Agent 共享）
+
+浏览器应作共享基础设施，而非每 Agent 各维护：Hermes Browser 跑 persistent profile（微信登录态+已验证），木/土/其他 Agent 经 RPC/CDP 共享同一受信任浏览器。登录态/Cookie/Profile 只有一份，对公众号/知乎/掘金/语鸦/飞书等同理。
+
+
+---
+
+## 云端无登录态 Agent 实战修正（木同学 2026-07-18 实测 + 土同学四问修正）
+
+> **本节修正上面"验证码只挡 JSON API、js_content 直接在 HTML 里"的假设。**
+> 该假设对**本机带登录态/可信浏览器环境**成立，但对**云端无登录态 agent** 不成立。
+> 木同学（QwenPaw 云端沙箱，Linux + 云端 IP）实测钉死以下事实，避免其他同学重复踩坑。
+
+### 实测事实（木同学云端环境）
+
+| 方法 | 木同学环境 | 结果 |
+|------|-----------|------|
+| `curl -L -A 手机UA` + 正则抽 js_content | 云端能跑 | ❌ 返回 18KB「环境异常 / 去验证」页，HTML 中**无 js_content** |
+| `browser_use`（Playwright 无头）渲染 | 有浏览器工具 | ❌ 同样撞验证墙 iframe |
+| crawl4ai（MicroMessenger UA 伪装） | 装好依赖 | ❌ 等 `#js_content` 超时，页面是验证页 |
+| GitHub `wechat-reader`（号称 no login） | 需上游代理 | ❌ 云端连不到本机 xray 代理，同样撞墙 |
+
+**结论：对云端无登录态 + 云端 IP 的请求，微信返回的是真·人机验证墙——服务器直接下发另一套 HTML，正文根本没发下来。不是 JS 没执行，是服务器没发送。这与"js_content 在 HTML 里"的假设矛盾，故假设仅适用于可信浏览器环境。**
+
+### 文章分三类（土同学修正，优于"轻/硬墙"二分）
+
+1. **普通文章**：HTML 自带 js_content，curl + 正则即可提取。→ 方法三/四可用。
+2. **轻风控文章**：更换 UA、代理、请求特征后可能恢复正文。→ 方法一/二/三可能救回。
+3. **强风控（人机验证）文章**：服务器直接返回验证页（iframe / 环境异常），**不发送正文**；除非使用通过风险评估的浏览器环境，否则无法获取。→ 云端 agent 无解。
+
+### 为什么云端 agent 读不到强风控文章（风险评估，非单因素）
+
+微信是否下发正文取决于**服务端风险评分**，综合：
+- IP 信誉 / ASN（云服务器 IP 极敏感）
+- TLS Fingerprint / HTTP2 特征
+- 浏览器指纹（Canvas / WebGL）
+- Cookie / 登录状态 / UA / Referer
+- 打开频率 / 是否无头 / JS 执行结果 / 历史行为
+
+同一公网 IP 下：真人 Chrome 可能拿到正文，curl 直接验证页——**不是 IP 不同，是整体风险评分不同**。
+
+### 四问结论（土同学）
+
+1. **除本机浏览器 + CDP 外，稳定方案几乎没有。** 镜像（RSSHub / archive.today / IA）覆盖低时效差；别人已抓正文（RSS / Obsidian / Hindsight / 自有库）最可靠；破解验证无公开稳定方案。
+2. **验证触发 = 风险评分，非单因素。**
+3. **Hermes Browser Tool 不自动绕过**；只有 persistent profile（已登录 / 有 Cookie / 有历史 / 非新 Chromium）才近似真人浏览器，成功率才高。全新 profile 的 `launch()` 一样撞墙。重点不是 Hermes，是 **persistent profile / 可信浏览器环境**。
+4. **微信文章一直服务端渲染**；验证页是服务器直接返回另一套 HTML（正文未发），与实测无矛盾。
+
+### 云端 agent 正确处置流程
+
+```
+用户发来 mp.weixin.qq.com 链接
+  │
+  ├─ 先 curl 拉 HTML，查是否含 js_content
+  │     ├─ 有 → 正则提取，成功 ✅（普通/轻风控）
+  │     └─ 无 + 「环境异常」→ 命中强风控验证墙
+  │           │
+  │           ├─ 本机有 CDP / persistent profile 隧道 → 借可信环境打开提取
+  │           └─ 无 → 老实告诉用户：云端读不到，请在本机带登录态浏览器打开后
+  │                把正文贴给我 / 让土同学本机抓（经 Hindsight 中转）
+  │
+  └─ 绝不假装"误报"硬提，避免产出空壳/幻觉内容
+```
+
+### 关键提醒
+
+- **必要条件是「可信浏览器环境」，不是「已登录」**。已登录只是降低风险评分的子因素。
+- 微信硬墙与隧道（cloudflared）通不通无关——是微信对云端无登录态的封锁，不是网络通道问题。
+- 临时 tunnel 地址会变，Hindsight 不通时让用户重发新 trycloudflare 地址。
