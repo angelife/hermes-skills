@@ -1,0 +1,175 @@
+# Hermes Skills Index
+
+Auto-generated index of all 171 skills. Categories as folder paths.
+
+- **** — > MUST USE when user wants to research/search/look up/find anything on the internet — e.g. "research this topic", "do a 
+- **agently-mail** — 通过 agently-cli 命令行工具操作邮件：发送、回复、转发、搜索、读取、下载附件、管理收件箱。当用户需要进行任何邮件相关操作时使用此 skill。
+- **android/android-chroot-services** — 在有 Magisk Root 的 Android 设备上建立真 chroot Linux 服务栈，覆盖 Debian/Ubuntu rootfs、apt 正常化、服务部署、Magisk service.d 自启与保活。
+- **android/android-diagnostics** — "【合并收容】Android 设备 ADB 系统诊断 — 异常重启/关机/卡顿/电池/崩溃/bootloader。收容了 adb-diagnostics / system-diagnostics / troubleshooting / de
+- **android/android-eth-static-ip** — 在已 Root 的 Android 设备上给 USB-C 转以太网稳定生产静态 IP，避免 WiFi/ADB 断线，且无需修改系统分区。
+- **android/android-gapps** — Install Google Apps (MindTheGapps / NikGapps) on LineageOS or other custom-ROM Android devices via ADB, recovery sideloa
+- **android/android-magisk-root-activation** — > Covers the recurring class of "Mi8 / dipper-class device has been factory reset, Magisk APK installed, but root is not
+- **android/android-proot-service-deploy** — 将服务部署到 Android 的 proot Linux 容器中直接运行。用于解决 pacman 不可用/签名卡死时的兜底路径，以及系统服务在 proot 中“看起来启动了其实没监听”的问题。技能提供静态包获取、压包解包到 rootfs、前
+- **android/android-qualcomm-edl-flash** — 高通 9008 EDL（Emergency Download）模式线刷工作流。适用于所有 locked bootloader 的 Qualcomm 设备（Smartisan/锤子、部分华为、旧款 OPPO/vivo 等）。从 EDL 刷 T
+- **android/android-usb-network-debugging** — Android USB 网络调试 - 从 USB tethering 到 OTG 网卡上网的完整调试路径
+- **android/android-wechat-db-decrypt** — "Android root + Frida hook 提取微信 EnMicroMsg.db 解密密钥，sqlcipher 解密明文导出。已验证于 Mi8 (LineageOS 22.2, WeChat 8.0.x)。"
+- **android/qualcomm-edl-flash** — 高通设备 EDL (Emergency Download / 9008) 模式刷机 — 通过 edl.py (bkerler/edl) 在 macOS 上绕过 locked bootloader 刷写 recovery/分区
+- **apple/macos-app-troubleshooting** — >- Diagnose macOS apps that won't open, crash on launch, or appear stuck. Covers stale background processes with --no-st
+- **apple/macos-battery-diagnostics** — "Diagnose MacBook internal battery health using SMC-level data (ioreg, system_profiler). Detect fuel gauge mis-calibrati
+- **apple/macos-computer-use** — | Drive the macOS desktop in the background — screenshots, mouse, keyboard, scroll, drag — without stealing the user's c
+- **apple/macos-display-management** — "macOS display configuration — rotation, resolution, arrangement, HiDPI scaling — via command line."
+- **apple/macos-native-apps** — "Automate macOS native apps — Notes, Reminders, Find My, and iMessage — from the terminal."
+- **apple/macos-usb-bootable-media** — >- Create bootable USB drives on macOS — download ISOs, find USB devices, write with dd, handle the headless sudo limita
+- **apple/macos-voice-pipeline** — Real-time speech-to-text pipeline on macOS — ffmpeg avfoundation capture → silero-vad → faster-whisper transcription. Co
+- **architecture/hermes-runtime-architecture** — >- Hermes Runtime Architecture 设计文档的骨架和核心论点。 讨论终点：长期 Agent 的连续性来自 Runtime，而不是来自模型的上下文窗口。
+- **architecture/memory-7layer-architecture** — >- memory-os 7层记忆架构在 Hermes 上的完整实现方案。 包含：L1 CREATIVE.md 隔离、L2 自动注入、L3 Structured Facts (SQLite)、 L4 Fabric 经验卡片、L5 语义检索、
+- **browser-provider** — "Hermes 浏览器执行后端抽象层 — 三层架构（BrowserProvider / ChallengeHandler / HumanAssist），可插拔 CDP / Playwright / BrowserAct 后端"
+- **computer-use** — | Drive the user's desktop in the background — clicking, typing, scrolling, dragging — without stealing the cursor, keyb
+- **data-science/jupyter-live-kernel** — "Iterative Python via live Jupyter kernel (hamelnb)."
+- **data-science/wechat-data-analysis** — "Extract, decrypt, and analyze WeChat chat history — export formats, decryption workflows, ChatLab integration, and know
+- **devops/agent-mail-fleet** — QQ Agent Mail（agently-cli）在五行舰队多同学场景的安装、OAuth、分设备绑邮箱、两阶段发信。触发：Agent Mail、agently-cli、agent.qq.com、给同学开邮箱、多邮箱、chan@agent.
+- **devops/android-phone-compute-node** — Root and configure an Android phone as a remote compute node — Magisk via ADB (no TWRP), USB networking, ADB proxy for i
+- **devops/android-phone-hermes-setup** — pydantic-core version mismatch fix on Android Termux
+- **devops/android-proot-arch-deploy** — > 在已 Root 的 Android 设备上部署 Arch Linux proot 容器，并越过 pacman/GPGME 签名限制安装服务。 适用场景：没有 chroot 环境 / GPG engine 在 proot 下不可用 / /
+- **devops/arch-linux-kodi-tv-setup** — 把一块 Arch Linux 机器设为 Kodi 电视播放器 — 开机自启、中文界面、中文字幕、SSH 维护。覆盖 Intel 核显笔记本场景（旧电脑改电视盒）。
+- **devops/bot-fleet-monitor** — Monitor all Hermes agents (土/金/水/火) — check gateway status, connectivity, process health, resource usage, and diagnose c
+- **devops/bot-token-maintenance** — Diagnose and fix Telegram bot token issues across Hermes agents (local Mac, Android chroot). Covers the `***` shell-subs
+- **devops/chatlab-cli** — "Install, configure, and use ChatLab CLI for chat history analysis across QQ/WeChat/Telegram/WhatsApp/Discord/Instagram/
+- **devops/china-cloud-hermes-deploy** — "Deploy Hermes Agent on domestic Chinese cloud VPS (Huawei Cloud AI Shell, Alibaba Cloud, Tencent Cloud) with restricted
+- **devops/hardware-assessment** — Assess hardware specs and capability for self-hosted AI workloads — Mac, ARM Linux devices (N1, 玩客云), and Android phones
+- **devops/hermes-android-deploy** — Hermes Gateway/Agent on Android (Termux) — known failure modes, bionic gotchas, Node.js install loop, HERMES_HOME pollut
+- **devops/hermes-cron-design** — Design self-maintaining Hermes cron jobs — log retention, phased rollouts with auto-transition, state tracking, safety v
+- **devops/hermes-macos-deploy** — >- Deploy Hermes Agent on a remote macOS machine. Covers SSH enablement (including Catalina-era workarounds for Full Dis
+- **devops/hermes-provider-config** — "Configure, verify, and manage inference providers in Hermes Agent — chat providers, image_gen providers, fallback chain
+- **devops/hermes-provider-fallback-config** — > Hermes provider 多 Key 容灾 fallback 配置流程。 触发：用户要求为 OpenCode Zen、NVIDIA、Agnes 等 API 服务配置多线路 fallback。 输入：key.txt 存放多组 Key
+- **devops/hermes-runtime-maintenance** — >- Maintain a customized Hermes Agent installation — version upgrades with tag pinning, local patch migration across ver
+- **devops/hindsight-server-operations** — Manage Hindsight memory server — diagnose resource usage, optimize memory, deploy on ARM hardware.
+- **devops/infrastructure-audit** — "Multi-dimensional audit of running infrastructure: bot inventory, key pools, hardware, networking, users, and pain poin
+- **devops/kindle-diagnostics** — >- 越狱 Kindle（PW5 / LanguageBreak）的浏览器故障排查、热修复安装、KOReader 插件部署。 覆盖有线诊断（USB 挂载读日志）、网络诊断（;dm / ;711 / 脚本跑测）、证书修复（KindleModd
+- **devops/kindle-maintenance** — >- Diagnose and fix Kindle (jailbroken) device issues via USB mass storage. Covers firmware version check, log analysis,
+- **devops/lan-ip-auto-sync** — "Use when Mac 换网（图书馆↔家）后局域网 IP 变化，或用户说「回家了/IP 变了/服务地址全改」。自动改写 Kindle 桥/OPDS/展示 URL 与（有状态时）舰队配置中的旧 IP，并输出当前入口。"
+- **devops/mao-search-workflow** — 通用 MoA 问题搜索与方案整合工作流。任何技术问题走标准流程：前提锁定 → 搜索 → 交叉验证 → 整合输出。内置搜索引擎插件架构，支持零代码扩展。
+- **devops/mu-qwenpaw-fleet** — 指挥木同学（QwenPaw 云端 Agent）— mu CLI、能力边界实测、浏览器沙箱 vs 本机/局域网控制、与 Agent Mail 的关系。触发：木同学、mu、QwenPaw、云端 Agent 能力盘点、木能不能控浏览器/设邮箱。
+- **devops/n1-troubleshooting-wizard** — 基于 MoA（Mixture of Agents）架构的斐讯 N1 盒子故障诊断技能。覆盖 S905D/S905X 硬件差异、USB 供电不足、apt 锁死、SSH 端口/首次登录、DTB 匹配、U 盘兼容等未覆盖痛点。支持搜索-分析-汇总
+- **devops/new-api-administration** — New API（基于 one-api）网关的渠道管理、路由调试、配额诊断和常见报错处理
+- **devops/omniroute-provider-setup** — Complete guide for configuring custom providers, proxy rules, and combos in OmniRoute v3.8.x
+- **devops/openwrt-n1-flash** — Documented workflow for flashing OpenWrt onto the N1 box (mediatek/filogic target) using TFTP, including image download,
+- **devops/qq-agent-mail** — Tencent QQ Agent Mail 配置工作流 — 给 AI Agent 配专属邮箱（agently-cli）。覆盖安装、OAuth 授权、平台二进制补装、oh-my-zsh PTY 绕过。适合给 Hermes 舰队的同学（土/金/
+- **devops/site-audit** — Hugo Quality Engineering Pipeline — dual-layer audit (Markdown source + Playwright render), CSS design token root-cause 
+- **devops/telegram-gateway** — Deploy, operate, and troubleshoot Hermes Telegram gateway — connection pool management, TCP keepalive, proxy configurati
+- **devops/unified-self-check** — 统一自检面板 — 手动或定时巡检全组件，打分出报告
+- **devops/upgrade-decision** — >- Structured framework for evaluating whether to upgrade a self-hosted system (Hermes Agent, OmniRoute, any tool with c
+- **devops/webhook-subscriptions** — Create and manage webhook subscriptions for event-driven agent activation. Use when the user wants external services to 
+- **diffusion-convergence** — "扩散收敛法 — 从模糊想法/问题出发，30分钟得到可执行的 MVP 方案。先扩散（铺开所有可能性+盲区），再收敛（每轮锁定一个决策点，一次只问一个问题）。适用于：架构设计/技术方案/产品定义/问题诊断/规划分析/不知道从哪开始的事。每个分
+- **ecommerce/xianyu-selling-tools** — 闲鱼二手交易工具链 — 智能客服自动回复、商品行情监控、价格追踪。覆盖 GitHub 开源项目选型、部署方式对比、避坑记录。
+- **ecommerce/xianyu-trading** — 闲鱼（Goofish）二手交易工作流 — 买前行情调研、卖时商品上架优化、工具链安装与避坑。覆盖价格研究、竞品分析、可用开源工具及其安装陷阱。
+- **free-ai-api-farming** — "批量注册免费AI服务账号 → 接入API网关 → 对外暴露OpenAI兼容接口。覆盖注册机部署、网关Docker搭建、多Provider适配、Token池管理。适用于Grok/DeepSeek/智谱/通义等支持新用户免费额度的AI平台。"
+- **github-workflow** — "Full GitHub lifecycle from Hermes — auth setup, repository management, issues, PR workflows, code review, and content a
+- **hardware/android-sysfs-input** — Manage Android input devices via sysfs — disable/enable touchscreens for headless/server use. Covers ADB device discover
+- **hardware/android-usb-host-mode** — 诊断和修复 Android 设备 USB 主机模式问题 — DWC3 角色切换、设备枚举、驱动绑定冲突
+- **hardware/kindle-jailbreak-maintenance** — Diagnose and repair jailbroken Kindle e-ink devices — x509 certificate issues, hotfix reinstallation, browser failure, n
+- **hardware/kindle-troubleshooting** — Diagnose and fix Kindle e-reader (jailbroken or stock) issues — browser not loading pages, WiFi connectivity, jailbreak 
+- **hardware/macos-usb-hardware-debug** — macOS USB 硬件调试 — 网卡、声卡、串口等外设的四层诊断法
+- **hermes-desktop-plugins** — Write desktop app plugins that add UI panes and commands.
+- **hermes-troubleshooting** — "Hermes Agent issues: gateway crashes, Telegram bot token conflicts, provider 403, launchd restart, stale PID."
+- **hugo/hugo-site-management** — Build, layout, deploy, and maintain an Angelife Hugo site with theme-consistent pages. Covers custom layouts, static→con
+- **infrastructure/ai-pool-manager** — "统一 AI Provider 连接池管理器。自动检测各 Provider 健康状态、配额余量，卡死自动切换、故障自动恢复。"
+- **infrastructure/federation-hub** — 五行舰队联邦控制平面 — Agent Registry + Event Log + Lease Manager + Task Ledger
+- **infrastructure/hermes-runtime-context-manager** — "Hermes Runtime v2 Context Manager — injects shared context into delegate_task calls so child agents inherit project/tas
+- **infrastructure/kindle-dashboard** — "Use when opening/fixing :28080 五行舰桥、看系统建成进度、今日干到哪、架构分层/服务监管、或用户说「一目了然/系统各部分工作状况/项目进度」。纯 HTML 面板（Kindle ePaper 友好）+ 待决策队
+- **kanban-workflow** — "Hermes Kanban 操作规范 — 初始化、任务链、状态机、模式库（P1-P8）、双机协作、故障排除。适用任何需要跨 Agent 协作、持久任务队列、人类介入审批的场景。"
+- **kanban** — "Hermes Kanban multi-agent workflow — orchestration routing, worker lifecycle, pitfalls, and recovery. Covers both the o
+- **kodi-media-center** — "Kodi 媒体中心管理：安装、配置、PVR IPTV、视频库、NAS 挂载、排障。赛扬小主机上管理 Kodi 的完整工作流。"
+- **last30days** — "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTu
+- **macos/macos-bootable-usb** — Create bootable USB drives on macOS — download ISOs, handle SourceForge/Cloudflare issues, write via dd/osascript, troub
+- **media/gif-search** — "Search/download GIFs from Tenor via curl + jq."
+- **media/heartmula** — "HeartMuLa: Suno-like song generation from lyrics + tags."
+- **media/songsee** — "Audio spectrograms/features (mel, chroma, MFCC) via CLI."
+- **media/wechat-article** — 提取微信公众号文章内容，绕过验证码，清洗排版为结构化阅读笔记
+- **media/youtube-content** — "YouTube transcripts to summaries, threads, blogs."
+- **media/youtube-tutorial-search** — Search YouTube for tutorial videos (e.g., flashing tutorials) using UI automation.
+- **memory-audit** — >- 定期审计 MEMORY.md 和 USER.md 的条目质量、重复、过时和长度。 分两阶段：观察期(0-6天)只报告不修改，第7天起进入执行期可清理。 目标：MEMORY.md < 2200字, USER.md 去重合并, 消除跨文件
+- **meta/bot-profile** — 五行团队 bot 冷启动画像模板和初始化流程
+- **meta/environment-assessment** — 每次启动新会话时先扫描运行环境——网络段、设备可达性、代理、办公位置，避免在错误假设下操作
+- **meta/health-diagnosis-workflow** — Use when the user asks "is X working / what is X doing / what's the status of <robot|service|agent>" — or when you find 
+- **meta/session-orientation** — 新会话/位置变更时的环境感知流程 — 先查清当前网络拓扑再动手
+- **meta/skill_library_maintenance** — Skill for reviewing conversations and updating the Hermes skill library based on user signals.
+- **meta/tool-relevance-evaluation** — "Evaluate third-party AI tools, frameworks, and articles against the user's personal infrastructure — Hermes agent fleet
+- **mobile/android-tv-install** — Install Android TV / Google TV x86 on old laptops or mini PCs to repurpose as TV boxes. Covers version selection, ISO do
+- **mobile/kindle-webbrowser-plugin** — Install, configure, and troubleshoot the webbrowser.koplugin (text-based web browser) on a jailbroken Kindle Paperwhite 
+- **network/network-diagnostics** — "系统化诊断网络问题：代理不稳定、国际出口限速、DNS 污染、WiFi 拥堵。先做对比测试找瓶颈层，再针对性解决。覆盖中国大陆常见场景（免费 WiFi 限速、公共热点拥堵、运营商 QoS）。"
+- **network/openwrt-n1-flashing** — Flash the N1 board via TFTP using OpenWrt factory image
+- **note-taking/obsidian** — Read, search, create, and edit notes in the Obsidian vault.
+- **obsidian/daily-multi-bot-workflow** — 多 bot 共享 TODO + 每日工作流规范。适用于多个 Hermes bot（土/金/水/火）协同时，统一日志、任务认领、session 合并规则。
+- **productivity/airtable** — Airtable REST API via curl. Records CRUD, filters, upserts.
+- **productivity/gmail-cleanup-workflow** — Bulk cleanup Gmail inboxes using Gmail API - archiving GitHub notifications, finding unsubscribe links, managing marketi
+- **productivity/google-workspace** — Gmail, Calendar, Drive, Contacts, Sheets, and Docs integration for Hermes. Uses Hermes-managed OAuth2 setup, prefers the
+- **productivity/linear** — Manage Linear issues, projects, and teams via the GraphQL API. Create, update, search, and organize issues. Uses API key
+- **productivity/maps** — "Geocode, POIs, routes, timezones via OpenStreetMap/OSRM."
+- **productivity/multi-model-analysis** — 多模型并行分析 — 三个模型同时点评同一内容，MoA 聚合输出，覆盖观点/亮点/局限/风险等多个维度
+- **productivity/nano-pdf** — "Edit PDF text/typos/titles via nano-pdf CLI (NL prompts)."
+- **productivity/notion** — "Notion API + ntn CLI: pages, databases, markdown, Workers."
+- **productivity/ocr-and-documents** — "Extract text from PDFs/scans (pymupdf, marker-pdf)."
+- **productivity/petdex** — Install and select animated petdex mascots for Hermes.
+- **productivity/powerpoint** — "Create, read, edit .pptx decks, slides, notes, templates."
+- **productivity/teams-meeting-pipeline** — "Operate the Teams meeting summary pipeline via Hermes CLI — summarize meetings, inspect pipeline status, replay jobs, m
+- **productivity/zhihu-search** — 知乎官方 API 搜索 — 站内搜索 / 全网搜索 / 热榜。直接调用 developer.zhihu.com 接口，返回结构化结果。
+- **proxy-management** — "本机代理工具链管理：v2rayN 客户端、SOCKS5 端口 10808、出口节点切换、全局模式设置、N1 OpenWrt 路由器代理。确保 AI 工具（NotebookLM、网络搜索）始终可用。"
+- **red-teaming/fire-security-tools-reference** — "Annual ranking evaluation of AI penetration testing tools and Hermes security playbook for threat surface hardening."
+- **research-9router-vs-freellm-api** — OmniRoute (9Router) AI gateway — install, native-module repair, upgrade, provider config, and comparison with FreeLLM-AP
+- **research/arxiv** — "Search arXiv papers by keyword, author, category, or ID."
+- **research/blogwatcher** — "Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool."
+- **research/llm-wiki** — "LLM Wiki — 增量式知识编译系统。Hermes 维护自动整理/链接/更新，Obsidian 可视化展示。目录: SCHEMA.md(规则)/index.md(索引)/raw/(原始资料)/entities/(实体)/concept
+- **research/notebooklm-analyze** — "把文章导入 NotebookLM → 深度分析 → 拉回分析结果 → 审查 → 再喂回去迭代。夜间自学核心引擎。"
+- **research/notebooklm-document-analysis** — "Upload documents (EPUB, PDF, text) to NotebookLM and run comprehensive, source-grounded analysis via async queries. Cov
+- **research/notebooklm-research-prep** — "做项目前先把相关资料搜全 → 喂 NotebookLM → 拿分析回来 → 再动手。避免一知半解就开干。"
+- **research/polymarket** — "Query Polymarket: markets, prices, orderbooks, history."
+- **research/research-paper-writing** — "Write ML papers for NeurIPS/ICML/ICLR: design→submit."
+- **research/triple-ai-nlm-synthesis** — "遇到技术问题时：同时问 Gemini/Claude/ChatGPT → 汇总回复 → 喂 NotebookLM 深度分析 → 拿回合成结论。适合需要多视角诊断的复杂问题。"
+- **software-development/android-debian-chroot** — "Deploy Debian rootfs as chroot on a rooted Android device. Covers rootfs extraction, chroot mounting, and basic config.
+- **software-development/android-local-hindsight** — > 把任意 Android chroot/容器中的 Hermes 实例切到你们这台 Mac 上的本地 hindsight 共享记忆。 适用对象：Mi8/Mi6 本地 chroot Hermes、Docker 中的 Hermes bot。 不
+- **software-development/angelife-minimal-execution-style** — Angelife 的极简执行风格规范。用户在任务中多次纠正\"说人话、极简执行、不要选项表、不要技术腔过度、 favours direct execution over explanation\"。适用于任何实际执行类任务、远程管理、文件操
+- **software-development/angelife-mobile-remote-workflow** — Two-tier AI remote workflow for Hugo/Git projects — Hermes as Telegram mobile controller + Reasonix as local execution e
+- **software-development/claude-desktop-managed-mcp** — 在 Claude Desktop 的 3P/managed 模式下接入自定义 MCP server。覆盖 managed config 路径、managedMcpServers schema、桥接方式、以及 Desktop UI/runti
+- **software-development/code-modernization-assessment** — >- Framework for evaluating whether to replace existing working code with "newer" technical approaches. Encodes the prin
+- **software-development/doom-emacs-macos-setup** — Set up, configure, and optimize Doom Emacs on macOS for a developer with a specific project (Hugo, Python, etc.). Covers
+- **software-development/doom-emacs-setup** — Install, configure, and maintain Doom Emacs on macOS (brew). Covers init.el/config.el/packages.el, system deps, font set
+- **software-development/douban-weread-import** — >- 把豆瓣读书书单、Zotero 阅读库、微信读书公开信息映射为本地 Obsidian 阅读资产。 最终落库到 Obsidian，保留 TSV 对照表、deepLink 列表和 weread 公开数据接口。 每批默认 50 本，支持断点续
+- **software-development/hermes-agent-skill-authoring** — "Author in-repo SKILL.md: frontmatter, validator, structure."
+- **software-development/hermes-browser-provider** — >- Hermes 浏览器执行抽象层 — 三层接口（BrowserProvider / ChallengeHandler / HumanAssist） 支持 CDP / Playwright / OpenBridge 后端，内置 CAPTC
+- **software-development/hermes-memory-providers** — "配置 Hermes Agent 外部内存提供商。默认用 hindsight（推荐），不建议用内置 memory。含单 agent 持久化和多 agent 共享记忆两种模式。"
+- **software-development/hermes-opencli-integration** — OpenCLI + Hermes 工作流集成 — 用 OpenCLI 的 1257+ 命令替代 Hermes 自身 web_search，节省 token 消耗。覆盖安装、配置、Android 避坑、常用命令速查。
+- **software-development/hermes-provider-cleanup** — > Safely prune Hermes provider/model/alias/credential state. Use when the user asks to remove failed providers, clean `/
+- **software-development/hermes-provider-healthcheck** — "Hermes provider 健康检查与可用性验证。覆盖 CLI 子命令复用、env 渲染一致性检查、并发探活、状态分类、密钥脱敏输出，以及非 OpenAI 兼容 provider 的特殊处理。"
+- **software-development/hugo-content-management** — Hugo 内容管理基座：内容盘点、重复检测、归档页去重、分类/系列一致性校验。适用于 blog 迁移后清理、series/posts 重复、frontmatter 审计、站点内容健康度检查。
+- **software-development/hugo-content-quality-audit** — Hugo Markdown 内容质量审计与模板清理。批量检测并剔除 AI 生成的假结语、空题记、占位语和重复段落，确保内容符合中文写作七条准则。
+- **software-development/hugo-theme-redesign** — "Redesign Hugo sites (PaperMod, polk-x, or other) for cleaner, content-first style. Covers template overrides, CSS rewri
+- **software-development/moa-sourcing-rules** — "协作期流程约束—来源可靠性/推测标注/自我引用核实/报告重写条目去向/会话期作风陷阱。触发：多来源整合汇报、排障报告验证、型号对比分析、协作期交付。必须优先于所有其他技能。"
+- **software-development/plan** — "Plan mode: write an actionable markdown plan to .hermes/plans/, no execution. Bite-sized tasks, exact paths, complete c
+- **software-development/project-knowledge-graph** — 为项目生成知识图谱（project map）——让 AI 先认识代码关系再动手，避免盲搜文件。基于 graphify 工具实现。
+- **software-development/reporting-and-handover-style** — Class-level workflow for how to close a Hermes session when handing back to Angelife — reporting style, decision-status 
+- **software-development/requesting-code-review** — "Pre-commit review: security scan, quality gates, auto-fix."
+- **software-development/simplify-code** — "Parallel 3-agent cleanup of recent code changes."
+- **software-development/skill-factory** — 从 Hermes 会话或文件自动生成可安装技能。分析对话提取工作流、命令、陷阱，输出完整 SKILL.md。
+- **software-development/skill-quality-eval** — "Skill 质量评估与迭代循环。用 20 条测试查触发率，用 3-5 场景查输出质量，数据驱动改进。适用于：新建 skill 后的第一轮优化、用户反馈 skill 不准/该触发没触发/不该触发乱触发时。不适用于 skill 内容本身大的重
+- **software-development/spike** — "Throwaway experiments to validate an idea before build."
+- **software-development/subagent-driven-development** — Use when executing implementation plans with independent tasks. Dispatches fresh delegate_task per task with two-stage r
+- **software-development/systematic-debugging** — "4-phase root cause debugging: understand bugs before fixing."
+- **software-development/telegram-bot-discussion** — > Orchestrate multi-agent discussions in Telegram group chats. Covers subagent spawning, bot identity management, comman
+- **software-development/test-driven-development** — "TDD: enforce RED-GREEN-REFACTOR, tests before code."
+- **software-development/third-party-skills** — 安装、配置、测试第三方 skills.sh 生态技能的模式。覆盖从 skills.sh 仓库安装技能、配置 API 凭据、以及在 Hermes session 中引用技能文档的完整流程。区别于 ~/.hermes/skills/（Herme
+- **software-development/wechat-chatlab-export** — >- 微信聊天记录解密导出 + ChatLab 分析全流程。 覆盖 Android root 解密（首选）和 macOS 内存扫描（备选）。 最终导出为 ChatLab 可读 JSON，用 AI 自动分析聊天规律、群活跃度、年度报告。
+- **software-development/writing-plans** — Use when you have a spec or requirements for a multi-step task. Creates comprehensive implementation plans with bite-siz
+- **systems-thinking** — "系统思考思维框架——Donella Meadows 系统动力学方法论。使用存量-流量-反馈回路分析复杂系统、排查8大陷阱、定位12杠杆点以设计有效干预。适用于问题诊断、复杂决策、组织变革、长期规划。"
+- **systems-thinking/mechanism-lockdown** — 机制锁死优先于行为规范——用户的核心方法论原则。问题应"从靠行为规范改成靠机制锁死，从概率变成必然"。重要的东西放在必经路径上，不依赖模型主动多走一步去找。适用于任何规则/流程/习惯的设计决策。
+- **web/gemini-web-cover-image-workflow** — > 通过 Gemini Web CDP 桥接为 Hugo 文章生成 AI 配图的全流程。 包括：文章内容发送 → Gemini 配图建议 → 生成图像 → 从页面提取 → 保存到 static/ → 设置 cover frontmatter
+- **web/hugo-comment-integration** — Add, theme-match, and verify comment systems on Hugo sites. Governs Giscus/Valine/Waline/Twikoo integration, partial inj
+- **web/web-ai-cdp-bridge** — "任何技术问题卡住→立即停手→总结问题→通过OpenBridge问ChatGPT或Claude→等回复再执行。不自作主张硬试。"
+- **wechat-obsidian-pipeline** — "微信文章全流程：全文备份到 Obsidian（防删）→ 深度精读 → 评级(★1-5) + 分析笔记 → NotebookLM 迭代分析 → LLM Wiki 归并。白天采集，晚上消化。"
+- **wechat/wechat-group-analysis** — "对解密后的微信 EnMicroMsg.db 进行群聊深度分析——提取消息统计、时间线、主题演变、对话脉络。适用于 10K~100K 条级别的群聊数据。"
+- **workflow/daily-journal** — "早晚课：新会话通读SOUL.md→定目标分。21:00写日志+评分(+10/-10)。犯错即时反刍找违反的规则。写入Obsidian每日工作记录。"
+- **workflow/session-lifecycle** — 理解会话上下文累积对模型输出质量的影响，掌握何时/为何 `/new`，区分长会话 vs 长进程
+- **workflow/shared-bot-healthcheck** — 五行团队各 bot 健康检查与状态报告
+- **workflow/shared-reporting-handoff** — 五行团队通用会话闭环与交接报告工作流
+- **workflow/state-restore** — "新会话起点：读SOUL.md + CREATIVE.md + 昨日日志 → 恢复上下文。少即是多。"
+- **workflow/state-save** — >-
