@@ -1,0 +1,52 @@
+{{ define "main" }}
+{{ partial "header.html" . }}
+
+<style>
+/* Page-specific styles — use theme CSS variables */
+.arch-card {
+  background: var(--c-bg-code);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.arch-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.arch-card p, .arch-card li { font-size: 0.85rem; line-height: 1.6; color: var(--c-muted); }
+.tag-stable { display:inline-block; background:rgba(16,185,129,0.12); color:#10b981; padding:1px 6px; border-radius:3px; font-size:0.75rem; }
+.tag-wip    { display:inline-block; background:rgba(245,158,11,0.12); color:#f59e0b; padding:1px 6px; border-radius:3px; font-size:0.75rem; }
+.arch-table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+.arch-table td { padding:3px 6px; border-bottom:1px solid var(--c-border); }
+.svg-wrap { max-width:100%; overflow-x:auto; margin:1.5rem 0; }
+.svg-wrap svg { max-width:1100px; width:100%; height:auto; }
+@media (max-width:640px) { .grid-2 { grid-template-columns:1fr; } }
+</style>
+
+<div class="page">
+  <div class="page-content">
+    <!-- === PAGE CONTENT GOES HERE === -->
+  </div>
+</div>
+
+<!-- === GISCUS (optional) === -->
+<div class="arch-card" style="margin-top:1.5rem;">
+  <h3>评论</h3>
+  <div id="giscus-comments" style="min-height:200px;font-size:0.85rem;color:var(--c-muted);"><p>加载评论中…</p></div>
+</div>
+<script src="https://giscus.app/client.js"
+  data-repo="angelife/angelife.github.com"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkyOTMyMTIw"
+  data-category="General"
+  data-category-id="DIC_kwDOACy9mM4DAgq0"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="light"
+  data-lang="zh-CN"
+  crossorigin="anonymous"
+  async>
+</script>
+
+{{ partial "footer.html" . }}
+{{ end }}

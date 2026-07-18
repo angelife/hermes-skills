@@ -1,0 +1,17 @@
+# Hermes internal state files
+.hub/
+.usage.json
+.usage.json.lock
+.curator_state
+.bundled_manifest
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Git
+*.orig
+*.bak
+*~
