@@ -1,7 +1,7 @@
 ---
 name: mu-qwenpaw-fleet
 description: 指挥木同学（QwenPaw 云端 Agent）— mu CLI、能力边界实测、浏览器沙箱 vs 本机/局域网控制、与 Agent Mail 的关系。触发：木同学、mu、QwenPaw、云端 Agent 能力盘点、木能不能控浏览器/设邮箱。
-version: 1.0.0
+version: 1.1.0
 tags: [mu, qwenpaw, 木同学, fleet, openbridge, cloud-agent]
 ---
 
@@ -96,3 +96,66 @@ mu config          # ~/.config/mu/config.json
 - `references/capability-audit-2026-07-18.md` — 能力盘点问答与边界表
 - `references/agent-mail-vs-remote-control.md` — 邮箱≠远程控制决策卡
 - Agent Mail：skill `agent-mail-fleet`
+
+
+---
+
+## 木同学内部工程笔记（agent 自己踩的坑 · 2026-07-18 实测）
+
+> 本节是**木同学视角**的内部经验，供其他 agent 复用木同学、或木同学跨 session 自我恢复时参考。
+> 与上面「指挥侧」互补：上面讲你怎么用木，这里讲木自己怎么在沙箱里把事做成。
+
+### 1. Shell 是 dash，不是 bash（最容易卡死的地方）
+
+QwenPaw 云端执行命令用的是 `/bin/sh` = **dash**，不是 bash。以下 bash 写法会直接报错：
+
+| 想写的 | bash | dash 里会怎样 | 替代 |
+|--------|------|--------------|------|
+| `if [ .. ]; then .. fi` 单行 | ✅ | `Syntax error: "then" unexpected` | 拆多行，或改用 `&&` / `||` |
+| `${PIPESTATUS[0]}` | ✅ | `Bad substitution` | 用 `echo $?` 单独接 |
+| `head -c 500` | ✅ | `invalid option -- 'c'` | 用 `cut -c1-500` 或 `python` |
+| `TOK=$(cat file)` 有时不展开 | ✅ | 偶尔变量为空 | **改用 python 读文件**，最稳 |
+| heredoc `<<'PYEOF'` | ✅ | `Syntax error: "(" unexpected` | 把脚本写进 `.py` 文件再用 `python3 x.py` 跑 |
+
+**黄金法则：任何需要变量拼接、命令替换、控制流的复杂 shell，全写成 `.py` 文件用 `python3` 跑。**
+python3 在标准路径、能读文件、能调 subprocess、不依赖 shell 变量展开，是沙箱里最可靠的执行层。
+
+### 2. git push 认证：URL 里的 token 会被环境剥离
+
+- **现象**：`git push https://<TOKEN>@github.com/...` 实际请求的是 `https://github.com/...`（无 token），返回 403 `denied to angelife`。
+- **原因**：沙箱底层（git/curl/透明代理）在发 HTTPS 前剥掉了 URL userinfo。
+- **实测可用**：
+  - ✅ **传统 PAT（`ghp_xxx`）** + python `urllib` 带 `Authorization: Bearer` header 直接打 GitHub API（contents/issues 都通）。
+  - ✅ 或用 `git -c "http.extraHeader=Authorization: Bearer <TOKEN>" push`（注意 dash 下 header 值里有空格需小心，python subprocess 传最稳）。
+  - ❌ **fine-grained token（`github_pat_xxx`）** 在本环境写操作全 403（"Resource not accessible by personal access token"），即使 API 返回 `push:true` 也是误导。直接用传统 PAT。
+- **token 安全**：绝不写进 MEMORY.md / Hindsight / 任何公开处；存 `/tmp/.ghtoken`（600 权限）即可，会话结束随沙箱销毁。
+
+### 3. 多会话隔离：群和单聊是分开的上下文
+
+- 群消息（Telegram 超级群 `telegram:-100xxxx`）是独立 session，与和用户单聊（`telegram:780486548`）**上下文不互通**。
+- 群里说话 → 触发群 session 的 agent 实例回应；单聊里看不到群里内容。
+- 查群历史用 `qwenpaw chats get <chat_id>`，不在当前上下文时得主动拉。
+- 主动往群推消息：`qwenpaw channels send --agent-id default --channel telegram --target-user <uid> --target-session telegram:-100xxxx --text "..."`（单向，无回复）。
+
+### 4. 模型不支持多模态
+
+- 当前模型是纯文本，`view_image` / 截图能存文件但**看不到图意**，需用户口述内容。
+- 收到图片先如实告知"我看不了图"，请用户打字描述或给文字版。
+
+### 5. Hindsight 经 cloudflared tunnel 读，地址常变
+
+- 地址形如 `https://xxxx.trycloudflare.com`，cloudflared 重启/用户离机必变。
+- 不通时让用户重发新地址；验证用 `curl <URL>/health` 或 `POST <URL>/v1/default/banks/hermes/memories/recall`。
+- 临时隧道是公网临时地址，任何人拿链接可读全部记忆——用完建议用户关 tunnel。
+
+### 6. 微信文章：云端无登录态必撞风控墙
+
+- 详见 `media/wechat-article` v1.4.0「云端无登录态 Agent 实战修正」。
+- 木同学云端抓任何微信文章（curl / Playwright / crawl4ai）都返回"环境异常"验证页，HTML 无 js_content。
+- 唯一解法：本机带登录态浏览器经 CDP 打开，或用户把正文贴给木。
+
+### 7. 跨 session 记忆恢复
+
+- 工作区 `MEMORY.md` / `PROFILE.md` 是精选长期记忆；`recall_history` 是原始对话真相源。
+- 醒来先读 AGENTS.md / SOUL.md / PROFILE.md / MEMORY.md，再按需 `recall_history` 搜更早会话。
+- 涉及舰队人/事 → 先 recall Hindsight（土/金/水/火/配置/决策）再答，不凭空猜。
